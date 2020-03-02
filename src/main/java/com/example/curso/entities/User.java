@@ -4,9 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.swing.*;
 import java.io.Serializable;
-import java.util.Objects;
 
 @Entity
 public class User implements Serializable {
@@ -25,7 +23,7 @@ public class User implements Serializable {
 
     }
 
-    public User(long id, String name, String email, String phone, String password) {
+    public User(Long id, String name, String email, String phone, String password) {
         super();
         this.id = id;
         this.name = name;
@@ -33,6 +31,7 @@ public class User implements Serializable {
         this.phone = phone;
         this.password = password;
     }
+
 
     public String getPhone() {
         return phone;
@@ -84,6 +83,6 @@ public class User implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return 0;
     }
 }
