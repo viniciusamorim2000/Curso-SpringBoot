@@ -1,5 +1,6 @@
 package com.example.curso.resource;
 
+
 import com.example.curso.entities.Order;
 import com.example.curso.entities.User;
 import com.example.curso.entities.enums.OrderStatus;
@@ -24,14 +25,6 @@ public class OrderResource implements CommandLineRunner{
     @Autowired
     private OrderService service;
 
-    @GetMapping
-    public ResponseEntity<List<Order>> finAll(){
-
-        List<Order> list = service.findAll();
-        return ResponseEntity.ok().body(list);
-
-    }
-
     //Insere usuários no banco
     @Autowired
     private OrderRepository orderRepository;
@@ -40,13 +33,20 @@ public class OrderResource implements CommandLineRunner{
     private UserRepository userRepository;
 
 
-
     //Busca usuários por ID
     @GetMapping(value = "/{id}")
     public ResponseEntity<Order> findById(@PathVariable Long id){
         Order obj = service.findById(id);
         return ResponseEntity.ok().body(obj);
     }
+    @GetMapping
+    public ResponseEntity<List<Order>> finAll(){
+
+        List<Order> list = service.findAll();
+        return ResponseEntity.ok().body(list);
+
+    }
+
     @GetMapping(value = "/orderUser")
     public ResponseEntity<List<Order>> orderUser(){
         User u1 = userRepository.findById(1L).get();
@@ -62,6 +62,9 @@ public class OrderResource implements CommandLineRunner{
 
         return ResponseEntity.ok().body(orders);
     }
+
+
+
 
     @Override
     public void run(String... args) throws Exception {
