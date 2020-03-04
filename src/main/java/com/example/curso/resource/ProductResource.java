@@ -1,6 +1,8 @@
 package com.example.curso.resource;
 
+import com.example.curso.entities.Category;
 import com.example.curso.entities.Product;
+import com.example.curso.repositories.CategoryRepository;
 import com.example.curso.repositories.ProductRepository;
 import com.example.curso.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping(value = "/products")
@@ -31,6 +34,9 @@ public class ProductResource implements CommandLineRunner {
     @Autowired
     private ProductRepository repository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     @Override
     public void run (String... args) throws  Exception{
         Product p1 = new Product(null, "The Lord of the Rings", "Lorem ipsum dolor sit amet, consectetur.", 90.5, "");
@@ -42,6 +48,8 @@ public class ProductResource implements CommandLineRunner {
 
         repository.saveAll(products);
 
+
+
     }
 
     //Busca usuários por ID
@@ -49,5 +57,35 @@ public class ProductResource implements CommandLineRunner {
     public ResponseEntity<Product> findById(@PathVariable Long id){
         Product obj = service.findById(id);
         return ResponseEntity.ok().body(obj);
+    }
+
+    @GetMapping(value ="/productCategory" )
+    public ResponseEntity<List<Void>> productCategory(){
+        Category cat1=  categoryRepository.findById(1L).get();
+        Category cat2=  categoryRepository.findById(2L).get();
+        Category cat3=  categoryRepository.findById(3L).get();
+
+        Product p1,p2,p3,p4,p5;
+
+        p1=repository.findById(1L).get();
+        p2=repository.findById(2L).get();
+        p3=repository.findById(3L).get();
+        p4=repository.findById(4L).get();
+        p5=repository.findById(5L).get();
+
+        cat1.getProducts().addAll(Arrays.asList(p2));
+        cat2.getProducts().addAll(Arrays.asList(p1,p5));
+        cat3.getProducts().addAll(Arrays.asList(p2,p3,p4));
+
+        p1.getCategories().add(cat2);
+        p2.getCategories().addAll(Arrays.asList(cat1,cat3));
+        p3.getCategories().add(cat3);
+        p4.getCategories().add(cat3);
+        p5.getCategories().add(cat2);
+
+        categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+        repository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
+
+        return ResponseEntity.noContent().build();
     }
 }
