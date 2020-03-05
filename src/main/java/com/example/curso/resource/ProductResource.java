@@ -1,12 +1,10 @@
 package com.example.curso.resource;
 
-import com.example.curso.entities.Category;
 import com.example.curso.entities.Product;
 import com.example.curso.repositories.CategoryRepository;
 import com.example.curso.repositories.ProductRepository;
 import com.example.curso.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
