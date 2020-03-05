@@ -21,7 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/orders")
-public class OrderResource implements CommandLineRunner{
+public class OrderResource {
     @Autowired
     private OrderService service;
 
@@ -47,29 +47,7 @@ public class OrderResource implements CommandLineRunner{
 
     }
 
-    @GetMapping(value = "/orderUser")
-    public ResponseEntity<List<Order>> orderUser(){
-        User u1 = userRepository.findById(1L).get();
-        User u2 = userRepository.findById(1L).get();
 
-        Order o1 = new Order(null, Instant.parse("2019-06-20T19:53:07Z"), OrderStatus.PAID, u1);
-        Order o2 = new Order(null, Instant.parse("2019-07-21T03:42:10Z"),OrderStatus.WAIIING_PAYMENT, u2);
-        Order o3 = new Order(null, Instant.parse("2019-07-22T15:21:22Z"),OrderStatus.WAIIING_PAYMENT, u1);
-
-        List<Order> orders = Arrays.asList(o1, o2, o3);
-
-        orderRepository.saveAll(orders);
-
-        return ResponseEntity.ok().body(orders);
-    }
-
-
-
-
-    @Override
-    public void run(String... args) throws Exception {
-
-    }
 
 
 }

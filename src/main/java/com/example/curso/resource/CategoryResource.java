@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/categories")
-public class CategoryResource implements CommandLineRunner {
+public class CategoryResource{
     @Autowired
     private CategoryService service;
 
@@ -31,17 +31,6 @@ public class CategoryResource implements CommandLineRunner {
     @Autowired
     private CategoryRepository repository;
 
-    @Override
-    public void run (String... args) throws  Exception{
-        Category cat1 = new Category(null, "Electronics");
-        Category cat2 = new Category(null, "Books");
-        Category cat3 = new Category(null, "Computers");
-
-        List<Category> categories = Arrays.asList(cat1, cat2, cat3);
-
-        repository.saveAll(categories);
-
-    }
 
     //Busca usuários por ID
     @GetMapping(value = "/{id}")

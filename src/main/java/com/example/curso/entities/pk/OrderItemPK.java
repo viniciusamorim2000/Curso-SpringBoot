@@ -2,6 +2,7 @@ package com.example.curso.entities.pk;
 
 import com.example.curso.entities.Order;
 import com.example.curso.entities.Product;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,6 +20,8 @@ public class OrderItemPK implements Serializable {
     @JoinColumn(name = "product_id")
     private Product product;
 
+
+    @JsonIgnore
     public Order getOrder() {
         return order;
     }
